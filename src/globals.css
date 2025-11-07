@@ -6,4 +6,5 @@
   --color-secondary: #EE424E;
   --color-dark-grey: #606060;
   --color-light-grey: #F3F3F3;
+  --font-sans: var(--font-montserrat-sans);
 }
