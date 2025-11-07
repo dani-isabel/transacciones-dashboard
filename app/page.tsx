@@ -1,11 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  QuestionMarkCircleIcon,
-  InformationCircleIcon,
-} from "@heroicons/react/24/outline";
-import Filters from "@/components/Filters";
-import TransactionsPanel from "@/components/TransactionsPanel";
+import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
+import TransactionsPanel from "@/components/TansactionsPanel/TransactionsPanel";
 
 export default function Home() {
   return (
@@ -21,22 +17,7 @@ export default function Home() {
           </Link>
         </div>
       </nav>
-      <section className="m-15">
-        <article className="flex justify-between">
-          <div className="shadow-md w-100 rounded-lg bg-white">
-            <div className="rounded-t-lg h-14 p-3 flex justify-between items-center bg-linear-to-r from-primary to-secondary text-light-grey">
-              <h3>Total de ventas de hoy</h3>
-              <InformationCircleIcon className="size-6 ml-1" />
-            </div>
-            <div className="flex h-25 justify-center items-center flex-col">
-              <h2>TOTAL</h2>
-              <h4>27 de Junio 2024</h4>
-            </div>
-          </div>
-          <Filters />
-        </article>
-        <TransactionsPanel />
-      </section>
+      <TransactionsPanel />
     </section>
   );
 }
