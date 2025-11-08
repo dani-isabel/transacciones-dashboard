@@ -1,3 +1,5 @@
+import { Transaction } from "@/types/transaction";
+
 export async function getTransactions() {
   const transactions = await fetch("https://bold-fe-api.vercel.app/api");
   return transactions.json();
@@ -76,9 +78,18 @@ export function getTransactionIcon(type:string) {
 export async function getTotalSales() {
     const transactions = await getTransactions();
     const {data} = transactions;
-    const totalSales = data.reduce((total, item) => {
+    const totalSales = data.reduce((total:number, item:Transaction) => {
         return item.amount + total
     }, 0)
-    console.log(totalSales)
-    return totalSales
+    return formatCurrency(totalSales)
+}
+
+export function getCurrentDate() {
+    const date = new Date()
+    const formattedCurrentDate = new Intl.DateTimeFormat("es-ES", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    } as const).format(date)
+    return formattedCurrentDate
 }

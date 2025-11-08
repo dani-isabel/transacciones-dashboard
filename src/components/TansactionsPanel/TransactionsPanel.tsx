@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import {
   MagnifyingGlassIcon,
   InformationCircleIcon,
@@ -5,10 +6,9 @@ import {
 import Filters from "@/components/TansactionsPanel/Filters";
 import TransactionsTable from "@/components/TansactionsPanel/TransactionsTable";
 
-import { getTotalSales } from "@/utils/getTransactionsValues";
+import { getTotalSales, getCurrentDate } from "@/utils/getTransactionsValues";
 
 export default function TransactionsPanel() {
-  getTotalSales();
   return (
     <section className="m-15">
       <article className="flex justify-between">
@@ -18,8 +18,8 @@ export default function TransactionsPanel() {
             <InformationCircleIcon className="size-6 ml-1" />
           </div>
           <div className="flex h-25 justify-center items-center flex-col">
-            <h2>TOTAL</h2>
-            <h4>27 de Junio 2024</h4>
+            <TotatlSales />
+            <h4>{getCurrentDate()}</h4>
           </div>
         </div>
         <Filters />
@@ -33,5 +33,23 @@ export default function TransactionsPanel() {
       </div>
       <TransactionsTable />
     </section>
+  );
+}
+
+async function TotatlSales() {
+  const total = await getTotalSales();
+
+  return (
+    <Suspense
+      fallback={
+        <tbody className="h-100 w-full">
+          <tr>
+            <td>****</td>
+          </tr>
+        </tbody>
+      }
+    >
+      <h2 className="font-extrabold">{`$ ${total}`}</h2>
+    </Suspense>
   );
 }

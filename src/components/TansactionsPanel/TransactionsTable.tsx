@@ -10,19 +10,10 @@ import {
   getTransactionIcon,
 } from "@/utils/getTransactionsValues";
 
+import { Transaction } from "@/types/transaction";
+
 async function TableRows() {
   const { data } = await getTransactions();
-
-  interface Transaction {
-    amount: number;
-    createdAt: number;
-    deduction?: number;
-    id: string;
-    paymentMethod: string;
-    salesType: string;
-    status: string;
-    transactionReference: number;
-  }
 
   if (!data) return <div>No hay transacciones</div>;
   return (
