@@ -1,6 +1,12 @@
 import { Suspense } from "react";
+import Image from "next/image";
 
-import { formatCurrency } from "@/utils/getFormattedValues";
+import {
+  formatCurrency,
+  getPaymentIcon,
+  formatDate,
+  getStatusMessages,
+} from "@/utils/getFormattedValues";
 
 async function getTransactions() {
   const transactions = await fetch("https://bold-fe-api.vercel.app/api");
@@ -27,12 +33,22 @@ async function TableRows() {
       {data.map((row: Transaction) => (
         <tr className="h-20" key={row.id}>
           <td>
-            {row.salesType}-{row.status}
+            <div className="flex text-primary">
+              {row.salesType}
+              <p>{getStatusMessages(row.status)}</p>
+            </div>
           </td>
-          <td>{row.createdAt}</td>
+          <td>{formatDate(row.createdAt)}</td>
           <td>
-            {row.paymentMethod}
-            {row.transactionReference}
+            <div className="flex w-40 justify-between">
+              <Image
+                alt={row.paymentMethod}
+                src={getPaymentIcon(row.paymentMethod)}
+                width={35}
+                height={10}
+              />
+              <p>{`****${row.transactionReference}`}</p>
+            </div>
           </td>
           <td>{row.id}</td>
           <td>
