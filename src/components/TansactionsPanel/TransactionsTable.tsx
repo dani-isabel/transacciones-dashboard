@@ -2,16 +2,13 @@ import { Suspense } from "react";
 import Image from "next/image";
 
 import {
+  getTransactions,
   formatCurrency,
   getPaymentIcon,
   formatDate,
   getStatusMessages,
-} from "@/utils/getFormattedValues";
-
-async function getTransactions() {
-  const transactions = await fetch("https://bold-fe-api.vercel.app/api");
-  return transactions.json();
-}
+  getTransactionIcon,
+} from "@/utils/getTransactionsValues";
 
 async function TableRows() {
   const { data } = await getTransactions();
@@ -31,11 +28,17 @@ async function TableRows() {
   return (
     <tbody className="h-100 w-full">
       {data.map((row: Transaction) => (
-        <tr className="h-20" key={row.id}>
-          <td>
-            <div className="flex text-primary">
-              {row.salesType}
-              <p>{getStatusMessages(row.status)}</p>
+        <tr className="h-20 row-border" key={row.id}>
+          <td className="pl-5">
+            <div className="flex text-primary items-center">
+              <Image
+                alt={row.salesType}
+                src={getTransactionIcon(row.salesType)}
+                width={5}
+                height={5}
+                className="h-5 w-5 mr-4"
+              />
+              <p className="font-medium">{getStatusMessages(row.status)}</p>
             </div>
           </td>
           <td>{formatDate(row.createdAt)}</td>
@@ -53,13 +56,13 @@ async function TableRows() {
           <td>{row.id}</td>
           <td>
             <div className="flex flex-col">
-              <h4 className="text-primary">{`$ ${formatCurrency(
+              <h4 className="text-primary font-medium">{`$ ${formatCurrency(
                 row.amount
               )}`}</h4>
               {row.deduction && (
                 <div>
                   <p className="text-dark-grey">Deducción Bold</p>
-                  <h4 className="text-secondary">{`-$ ${formatCurrency(
+                  <h4 className="text-secondary font-medium">{`-$ ${formatCurrency(
                     row.deduction
                   )}`}</h4>
                 </div>
@@ -75,9 +78,9 @@ async function TableRows() {
 export default async function TransactionsTable() {
   return (
     <table className="table-auto bg-white w-full">
-      <thead className="h-8 text-dark-grey">
-        <tr className="p-4">
-          <th>Transacción</th>
+      <thead className="h-10 text-dark-grey">
+        <tr className="p-4 text-left row-border header-border">
+          <th className="pl-5">Transacción</th>
           <th>Fecha y hora</th>
           <th>Método de pago</th>
           <th>ID transacción Bold</th>

@@ -5,7 +5,10 @@ import {
 import Filters from "@/components/TansactionsPanel/Filters";
 import TransactionsTable from "@/components/TansactionsPanel/TransactionsTable";
 
+import { getTotalSales } from "@/utils/getTransactionsValues";
+
 export default function TransactionsPanel() {
+  getTotalSales();
   return (
     <section className="m-15">
       <article className="flex justify-between">

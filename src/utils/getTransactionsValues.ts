@@ -1,3 +1,8 @@
+export async function getTransactions() {
+  const transactions = await fetch("https://bold-fe-api.vercel.app/api");
+  return transactions.json();
+}
+
 export function formatCurrency(amount:number) {
     const locale = "es-ES"
     try{
@@ -52,4 +57,28 @@ export function getStatusMessages(status:string) {
             return "Cobro pendiente"
         }
     }
+}
+
+export function getTransactionIcon(type:string) {
+    switch (type) {
+        case "TERMINAL": {
+            return "/datafono.png";
+        }
+        case "PAYMENT_LINK": {
+            return "/enlace.png";
+        }
+        default: {
+            return "/desconocido.png"
+        }
+    }
+} 
+
+export async function getTotalSales() {
+    const transactions = await getTransactions();
+    const {data} = transactions;
+    const totalSales = data.reduce((total, item) => {
+        return item.amount + total
+    }, 0)
+    console.log(totalSales)
+    return totalSales
 }

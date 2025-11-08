@@ -11,8 +11,10 @@ export default function Home() {
           <Image src="/boldLogo.png" alt="Bold logo" height={120} width={120} />
         </Link>
         <div className="w-40 flex text-light-grey justify-between">
-          <Link href="/negocio">Mi negocio</Link>
-          <Link className="flex items-center" href="/ayuda">
+          <Link className="hover:underline" href="/negocio">
+            Mi negocio
+          </Link>
+          <Link className="hover:underline flex items-center" href="/ayuda">
             Ayuda <QuestionMarkCircleIcon className="size-4 ml-1" />
           </Link>
         </div>
