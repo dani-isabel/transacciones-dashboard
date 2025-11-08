@@ -21,8 +21,9 @@
     ],
     "paths": {
       "@/*": ["./*"],
-            "@/styles/*": ["styles/*"],
-      "@/components/*": ["components/*"]
+      "@/styles/*": ["styles/*"],
+      "@/components/*": ["components/*"],
+      "@/utils/*": ["utils/*"]
     }
   },
   "include": [

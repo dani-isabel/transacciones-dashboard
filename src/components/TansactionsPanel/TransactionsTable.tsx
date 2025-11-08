@@ -1,5 +1,7 @@
 import { Suspense } from "react";
 
+import { formatCurrency } from "@/utils/getFormattedValues";
+
 async function getTransactions() {
   const transactions = await fetch("https://bold-fe-api.vercel.app/api");
   return transactions.json();
@@ -23,7 +25,7 @@ async function TableRows() {
   return (
     <tbody className="h-100 w-full">
       {data.map((row: Transaction) => (
-        <tr key={row.id}>
+        <tr className="h-20" key={row.id}>
           <td>
             {row.salesType}-{row.status}
           </td>
@@ -33,10 +35,20 @@ async function TableRows() {
             {row.transactionReference}
           </td>
           <td>{row.id}</td>
-          <td className="flex flex-column">
-            {row.amount}
-            {row.deduction && <p>Deducción Bold</p>}
-            <p>{row.deduction}</p>
+          <td>
+            <div className="flex flex-col">
+              <h4 className="text-primary">{`$ ${formatCurrency(
+                row.amount
+              )}`}</h4>
+              {row.deduction && (
+                <div>
+                  <p className="text-dark-grey">Deducción Bold</p>
+                  <h4 className="text-secondary">{`-$ ${formatCurrency(
+                    row.deduction
+                  )}`}</h4>
+                </div>
+              )}
+            </div>
           </td>
         </tr>
       ))}
