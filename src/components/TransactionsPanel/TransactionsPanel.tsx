@@ -3,8 +3,8 @@ import {
   MagnifyingGlassIcon,
   InformationCircleIcon,
 } from "@heroicons/react/24/outline";
-import Filters from "@/components/TansactionsPanel/Filters";
-import TransactionsTable from "@/components/TansactionsPanel/TransactionsTable";
+import Filters from "@/components/TransactionsPanel/Filters";
+import TransactionsTable from "@/components/TransactionsPanel/TransactionsTable";
 
 import { getTotalSales, getCurrentDate } from "@/utils/getTransactionsValues";
 

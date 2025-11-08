@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 
-import TableRows from "@/components/TansactionsPanel/TableRows";
+import TableRows from "@/components/TransactionsPanel/TableRows";
 
 import { getTransactions } from "@/utils/getTransactionsValues";
 

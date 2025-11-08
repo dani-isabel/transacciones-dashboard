@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
-import TransactionsPanel from "@/components/TansactionsPanel/TransactionsPanel";
+import TransactionsPanel from "@/components/TransactionsPanel/TransactionsPanel";
 
 export default function Home() {
   return (

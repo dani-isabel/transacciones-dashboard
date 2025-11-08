@@ -12,7 +12,7 @@ import {
 
 import { Transaction } from "@/types/transaction";
 
-import TransactionSidebar from "@/components/TansactionsPanel/TransactionSidebar";
+import TransactionSidebar from "@/components/TransactionsPanel/TransactionSidebar";
 
 export default function TableRows({
   transactions,
