@@ -2,8 +2,20 @@
 
 @theme {
   --color-foreground: #171717;
-  --color-primary: #121E6C;
-  --color-secondary: #EE424E;
+  --color-primary: #121e6c;
+  --color-secondary: #ee424e;
   --color-dark-grey: #606060;
-  --color-light-grey: #F3F3F3;
+  --color-light-grey: #f3f3f3;
+  --color-medium-grey: #b9b9b9;
+  --font-sans: var(--font-montserrat-sans);
+  --radius-sm: 0.5rem;
+  --radius-lg: 1.2rem;
+}
+
+.row-border {
+  border-bottom: 1px solid var(--color-medium-grey);
+}
+.header-border {
+  border-top: 1px solid var(--color-light-grey);
+  border-bottom: 1px solid var(--color-light-grey);
 }
