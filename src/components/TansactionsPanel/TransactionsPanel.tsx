@@ -10,9 +10,9 @@ import { getTotalSales, getCurrentDate } from "@/utils/getTransactionsValues";
 
 export default function TransactionsPanel() {
   return (
-    <section className="m-15">
-      <article className="flex justify-between">
-        <div className="shadow-md w-100 rounded-lg bg-white">
+    <section className="m-5 md:m-15">
+      <article className="flex flex-col md:flex-row justify-between">
+        <div className="shadow-md rounded-lg bg-white md:w-96">
           <div className="rounded-t-lg h-14 p-3 flex justify-between items-center bg-linear-to-r from-primary to-secondary text-light-grey">
             <h3>Total de ventas de hoy</h3>
             <InformationCircleIcon className="size-6 ml-1" />

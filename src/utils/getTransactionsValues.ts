@@ -76,12 +76,16 @@ export function getTransactionIcon(type:string) {
 } 
 
 export async function getTotalSales() {
-    const transactions = await getTransactions();
-    const {data} = transactions;
-    const totalSales = data.reduce((total:number, item:Transaction) => {
-        return item.amount + total
-    }, 0)
-    return formatCurrency(totalSales)
+    try {
+        const transactions = await getTransactions();
+        const {data} = transactions;
+        const totalSales = data.reduce((total:number, item:Transaction) => {
+            return item.amount + total
+        }, 0)
+        return formatCurrency(totalSales)
+    } catch(error) {
+        console.error("No fue posible obtener las transacciones", error)
+    }
 }
 
 export function getCurrentDate() {

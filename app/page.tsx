@@ -6,9 +6,15 @@ import TransactionsPanel from "@/components/TansactionsPanel/TransactionsPanel";
 export default function Home() {
   return (
     <section>
-      <nav className="flex w-full h-25 pl-20 pr-40 py-6 bg-linear-to-r from-primary to-secondary justify-between items-center">
+      <nav className="flex py-2 md:h-25 px-5 md:pl-20 md:pr-40 md:py-6 bg-linear-to-r from-primary to-secondary justify-between items-center">
         <Link href="/" className="m-1.5 p-1.5">
-          <Image src="/boldLogo.png" alt="Bold logo" height={120} width={120} />
+          <Image
+            src="/boldLogo.png"
+            alt="Bold logo"
+            height={120}
+            width={120}
+            className="h-8 w-auto"
+          />
         </Link>
         <div className="w-40 flex text-light-grey justify-between">
           <Link className="hover:underline" href="/negocio">
