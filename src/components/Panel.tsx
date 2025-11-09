@@ -1,9 +1,6 @@
-import {
-  MagnifyingGlassIcon,
-  InformationCircleIcon,
-} from "@heroicons/react/24/outline";
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import Filters from "@/components/Filters";
-import TransactionsTable from "@/components/Table";
+import Search from "@/components/Search";
 import TransactionSidebar from "@/components/Sidebar";
 
 import type { Transaction } from "@/types/transaction";
@@ -45,14 +42,7 @@ export default async function TransactionsPanel() {
         </div>
         <Filters />
       </article>
-      <div className="flex flex-column mt-5 rounded-t-lg h-14 p-3 flex justify-between items-center bg-linear-to-r from-primary to-secondary text-light-grey">
-        <h3>Tus ventas de mes actual</h3>
-      </div>
-      <div className="flex w-full bg-white p-3 ">
-        <MagnifyingGlassIcon className="size-6 ml-1 text-medium-grey" />
-        <input type="search" placeholder="Buscar" className="absolute pl-8" />
-      </div>
-      <TransactionsTable transactions={transactions} />
+      <Search transactions={transactions} />
       <TransactionSidebar />
     </section>
   );

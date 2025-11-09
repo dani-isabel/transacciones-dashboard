@@ -1,18 +1,23 @@
 import {useState, useEffect} from "react"
 
 export function useMediaQuery(mediaQuery: string) {
-    const getInitialMatch = () =>         typeof window !== "undefined"
-            ? window.matchMedia(mediaQuery).matches
-            : false;
-    const [isMatchMedia, setIsMatchMedia] = useState(getInitialMatch);
+    const [isMatchMedia, setIsMatchMedia] = useState(() => {
+        if (typeof window === "undefined") return false;
+        return window.matchMedia(mediaQuery).matches;
+    });
+    
+    const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
-        const currentSize = window?.matchMedia(mediaQuery);
+        setIsMounted(true);
+        const currentSize = window.matchMedia(mediaQuery);
+        setIsMatchMedia(currentSize.matches);
 
         const handler = (e: MediaQueryListEvent) => setIsMatchMedia(e.matches);
         currentSize.addEventListener('change', handler);
 
         return () => currentSize.removeEventListener('change', handler);
     }, [mediaQuery]);
-    return isMatchMedia;
+    
+    return isMounted ? isMatchMedia : false;
 }

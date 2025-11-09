@@ -80,3 +80,45 @@ export function getCurrentDate() {
     } as const).format(date)
     return formattedCurrentDate
 }
+
+export function getFilteredData(transactions: Transaction[], searchTerm:string) {
+    return transactions.filter((transaction) => {
+    if (!searchTerm) return true;
+
+    const searchLower = searchTerm.toLowerCase();
+
+    const matchesId = transaction.id.toLowerCase().includes(searchLower);
+    const matchesPaymentMethod = transaction.paymentMethod
+      .toLowerCase()
+      .includes(searchLower);
+    const matchesReference = transaction.transactionReference
+      .toString()
+      .includes(searchLower);
+    const matchesAmount = formatCurrency(transaction.amount)
+      .toLowerCase()
+      .includes(searchLower);
+    const matchesDeduction = transaction.deduction
+      ? formatCurrency(transaction.deduction).toLowerCase().includes(searchLower)
+      : false;
+    const matchesStatus = getStatusMessages(transaction.status)
+      .toLowerCase()
+      .includes(searchLower);
+    const matchesSalesType = transaction.salesType
+      .toLowerCase()
+      .includes(searchLower);
+    const matchesDate = formatDate(transaction.createdAt)
+      .toLowerCase()
+      .includes(searchLower);
+
+    return (
+      matchesId ||
+      matchesPaymentMethod ||
+      matchesReference ||
+      matchesAmount ||
+      matchesDeduction ||
+      matchesStatus ||
+      matchesSalesType ||
+      matchesDate
+    );
+  });
+}

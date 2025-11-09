@@ -8,31 +8,31 @@ import {
   formatDate,
   getStatusMessages,
   getTransactionIcon,
+  getFilteredData,
 } from "@/utils/getTransactionsValues";
 
 import type { Transaction } from "@/types/transaction";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
-import TransactionSidebar from "@/components/Sidebar";
+interface TransactionsTableProps {
+  transactions: Transaction[];
+  searchTerm: string;
+}
 
 export default function Table({
   transactions,
-}: {
-  transactions: Array<Transaction>;
-}) {
+  searchTerm,
+}: TransactionsTableProps) {
   const [selectedTransaction, setSelectedTransaction] =
     useState<Transaction | null>(null);
 
-  const [isLoaded, setIsLoaded] = useState(true);
-
   const isDesktop = useMediaQuery("(min-width: 1024px)");
-  console.log(isDesktop);
+  const filteredTransactions = getFilteredData(transactions, searchTerm);
 
   function handleActiveRow(row: Transaction) {
     setSelectedTransaction(row);
   }
 
-  if (!isLoaded) return null;
   return (
     <>
       {isDesktop ? (
@@ -47,7 +47,7 @@ export default function Table({
             </tr>
           </thead>
           <tbody className="h-100 w-full">
-            {transactions.map((row: Transaction) => (
+            {filteredTransactions.map((row: Transaction) => (
               <tr
                 className="h-20 row-border hover:bg-light-grey"
                 key={row.id}
@@ -103,7 +103,7 @@ export default function Table({
       ) : (
         <table className="table-auto bg-white w-full">
           <tbody className="h-100 w-full">
-            {transactions.map((row: Transaction) => (
+            {filteredTransactions?.map((row: Transaction) => (
               <tr
                 className="h-20 row-border hover:bg-light-grey"
                 key={row.id}
