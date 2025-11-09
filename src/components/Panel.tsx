@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import {
   MagnifyingGlassIcon,
   InformationCircleIcon,
@@ -7,9 +6,30 @@ import Filters from "@/components/Filters";
 import TransactionsTable from "@/components/Table";
 import TransactionSidebar from "@/components/Sidebar";
 
-import { getTotalSales, getCurrentDate } from "@/utils/getTransactionsValues";
+import type { Transaction } from "@/types/transaction";
 
-export default function TransactionsPanel() {
+import { formatCurrency, getCurrentDate } from "@/utils/getTransactionsValues";
+
+async function getTransactions(): Promise<{ data: Transaction[] }> {
+  const transactions = await fetch("https://bold-fe-api.vercel.app/api");
+  if (!transactions.ok) {
+    throw new Error("Failed to fetch transactions");
+  }
+
+  return transactions.json();
+}
+
+export function getTotalSales(transactions: Transaction[]): string {
+  const totalSales = transactions.reduce((total: number, item: Transaction) => {
+    return item.amount + total;
+  }, 0);
+  return formatCurrency(totalSales);
+}
+
+export default async function TransactionsPanel() {
+  const { data: transactions } = await getTransactions();
+  const totalSales = getTotalSales(transactions);
+
   return (
     <section className="p-5 md:p-15 relative">
       <article className="flex flex-col md:flex-row justify-between">
@@ -19,7 +39,7 @@ export default function TransactionsPanel() {
             <InformationCircleIcon className="size-6 ml-1" />
           </div>
           <div className="flex h-25 justify-center items-center flex-col">
-            <TotatlSales />
+            <h2 className="font-extrabold">{`$ ${totalSales}`}</h2>
             <h4>{getCurrentDate()}</h4>
           </div>
         </div>
@@ -32,26 +52,8 @@ export default function TransactionsPanel() {
         <MagnifyingGlassIcon className="size-6 ml-1 text-medium-grey" />
         <input type="search" placeholder="Buscar" className="absolute pl-8" />
       </div>
-      <TransactionsTable />
+      <TransactionsTable transactions={transactions} />
       <TransactionSidebar />
     </section>
-  );
-}
-
-async function TotatlSales() {
-  const total = await getTotalSales();
-
-  return (
-    <Suspense
-      fallback={
-        <tbody className="h-100 w-full">
-          <tr>
-            <td>****</td>
-          </tr>
-        </tbody>
-      }
-    >
-      <h2 className="font-extrabold">{`$ ${total}`}</h2>
-    </Suspense>
   );
 }

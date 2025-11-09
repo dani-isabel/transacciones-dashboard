@@ -1,4 +1,4 @@
-export  interface Transaction {
+export interface Transaction {
     amount: number;
     createdAt: number;
     deduction?: number;

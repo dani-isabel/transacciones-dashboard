@@ -1,11 +1,6 @@
-import { Transaction } from "@/types/transaction";
+import type { Transaction } from "@/types/transaction";
 
-export async function getTransactions() {
-  const transactions = await fetch("https://bold-fe-api.vercel.app/api");
-  return transactions.json();
-}
-
-export function formatCurrency(amount:number) {
+export function formatCurrency (amount:number) {
     const locale = "es-ES"
     try{
         Intl.NumberFormat.supportedLocalesOf([locale])
@@ -16,6 +11,7 @@ export function formatCurrency(amount:number) {
         }).format(amount).replace("COP", "")
     } catch(error) {
         console.error("Invalid locale", {error, amount, locale})
+        return amount.toLocaleString()
     }
 }
 
@@ -72,19 +68,6 @@ export function getTransactionIcon(type:string) {
         default: {
             return "/desconocido.png"
         }
-    }
-} 
-
-export async function getTotalSales() {
-    try {
-        const transactions = await getTransactions();
-        const {data} = transactions;
-        const totalSales = data.reduce((total:number, item:Transaction) => {
-            return item.amount + total
-        }, 0)
-        return formatCurrency(totalSales)
-    } catch(error) {
-        console.error("No fue posible obtener las transacciones", error)
     }
 }
 
