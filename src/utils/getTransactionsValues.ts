@@ -78,7 +78,15 @@ export function getCurrentDate() {
         month: "long",
         day: "numeric"
     } as const).format(date)
+    console.log({formattedCurrentDate})
     return formattedCurrentDate
+}
+export function getCurrentMonth() {
+    const date = new Date()
+    const formattedCurrentMonth = new Intl.DateTimeFormat("es-ES", {
+        month: "long",
+    } as const).format(date)
+    return formattedCurrentMonth
 }
 
 export function getFilteredData(transactions: Transaction[], searchTerm:string) {

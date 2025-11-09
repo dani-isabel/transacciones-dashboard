@@ -1,4 +1,5 @@
 import { DATE_RANGES } from "@/constants/filters";
+import { getCurrentMonth } from "@/utils/getTransactionsValues";
 
 interface DateRangeButtonsProps {
   selectedRange: string;
@@ -12,7 +13,7 @@ export default function DateRangeButtons({
   const ranges = [
     { value: DATE_RANGES.TODAY, label: "Hoy" },
     { value: DATE_RANGES.WEEK, label: "Esta semana" },
-    { value: DATE_RANGES.MONTH, label: "Mes actual" },
+    { value: DATE_RANGES.MONTH, label: getCurrentMonth() },
   ];
 
   const handleClick = (value: string) => {
@@ -20,12 +21,12 @@ export default function DateRangeButtons({
   };
 
   return (
-    <div className="h-12 md:w-233 rounded-sm flex justify-between bg-white items-center">
+    <div className="h-12 md:w-233 rounded-sm flex justify-between bg-white items-center p-2 md:p-5">
       {ranges.map((range) => (
         <button
           key={range.value}
           onClick={() => handleClick(range.value)}
-          className={`w-40 md:w-65 h-8 ${
+          className={`w-40 md:w-65 h-8 capitalize cursor-pointer ${
             range.value === DATE_RANGES.TODAY ? "ml-3" : ""
           } rounded-lg ${selectedRange === range.value ? "bg-light-grey" : ""}`}
         >

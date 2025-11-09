@@ -42,7 +42,7 @@ export default function FilterModal({
     <div className="absolute top-16 right-0 bg-white w-60 flex flex-col py-2 px-4 rounded-sm shadow-md z-10">
       <div className="flex justify-between items-center mb-3">
         <h3>Filtrar</h3>
-        <button onClick={onClose} type="button">
+        <button onClick={onClose} type="button" className="cursor-pointer">
           <XMarkIcon className="size-5" />
         </button>
       </div>

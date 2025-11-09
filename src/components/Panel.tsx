@@ -10,6 +10,8 @@ import { TransactionProvider } from "@/contexts/TransactionContext";
 import type { Transaction } from "@/types/transaction";
 
 import { formatCurrency, getCurrentDate } from "@/utils/getTransactionsValues";
+import { filterTransactionsByDateRange } from "@/utils/getFilterTransactions";
+import { DATE_RANGES } from "@/constants/filters";
 
 async function getTransactions(): Promise<{ data: Transaction[] }> {
   const transactions = await fetch("https://bold-fe-api.vercel.app/api");
@@ -43,10 +45,13 @@ function getTotalDeductions(transactions: Transaction[]): number {
 
 export default async function TransactionsPanel() {
   const { data: transactions } = await getTransactions();
-  const totalSales = getTotalSales(transactions);
-  const totalDeductions = getTotalDeductions(transactions);
+  const dailyTransactions = filterTransactionsByDateRange(
+    transactions,
+    DATE_RANGES.TODAY
+  );
+  const totalSales = getTotalSales(dailyTransactions);
+  const totalDeductions = getTotalDeductions(dailyTransactions);
   const totalEarnings = totalSales - totalDeductions;
-  console.log({ totalEarnings });
 
   return (
     <section className="p-5 md:p-15 relative">
@@ -56,7 +61,7 @@ export default async function TransactionsPanel() {
             <div className="rounded-t-lg h-14 p-3 flex justify-between items-center bg-linear-to-r from-primary to-secondary text-light-grey">
               <h3>Total de ventas de hoy</h3>
               <Popover className="relative">
-                <PopoverButton>
+                <PopoverButton className="cursor-pointer">
                   <InformationCircleIcon className="size-6 ml-1" />
                 </PopoverButton>
                 <PopoverPanel
@@ -84,11 +89,11 @@ export default async function TransactionsPanel() {
                 </PopoverPanel>
               </Popover>
             </div>
-            <div className="flex h-25 justify-center items-center flex-col">
-              <h2 className="font-extrabold">{`$ ${formatCurrency(
+            <div className="flex p-2 md:p-4 justify-center items-center flex-col">
+              <h2 className="font-extrabold md:text-xl md:mb-3 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">{`$ ${formatCurrency(
                 totalSales
               )}`}</h2>
-              <h4>{getCurrentDate()}</h4>
+              <h4 className="text-sm">{getCurrentDate()}</h4>
             </div>
           </div>
           <Suspense fallback={<h3>Loading date filters</h3>}>
