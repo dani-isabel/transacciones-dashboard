@@ -53,71 +53,91 @@ export default function TransactionSidebar() {
     }
   }
 
+  function getPaymentMessage(salesType: string) {
+    switch (salesType) {
+      case "PAYMENT_LINK": {
+        return "Link de pago";
+      }
+      case "TERMINAL": {
+        return "Datáfono";
+      }
+      default: {
+        return "Desconocido";
+      }
+    }
+  }
+
   return (
     <div className="fixed inset-0 bg-transparent bg-opacity-90 z-50 flex justify-end">
       <div
         ref={sidebarRef}
-        className="w-full md:w-md h-full bg-white p-5 overflow-y-auto"
+        className="flex flex-col md:rounded-l-lg w-full md:w-md h-full bg-white p-4 md:p-7 overflow-y-auto"
       >
-        <button onClick={clearTransaction} className="self-end">
+        <button onClick={clearTransaction} className="cursor-pointer self-end">
           <XMarkIcon className="size-5 ml-1" />
         </button>
         <div className="flex flex-col justify-center items-center mt-2">
           <Image
             alt={selectedTransaction.status}
             src={getStatusIcon(selectedTransaction.status)}
-            width={50}
-            height={50}
+            width={30}
+            height={30}
           />
-          <p className="font-medium">
+          <p className="font-medium text-sm">
             {getStatusMessages(selectedTransaction.status)}
           </p>
-          <h4 className="text-primary font-bold">{`$ ${formatCurrency(
+          <h4 className="text-primary font-bold md:text-xl">{`$ ${formatCurrency(
             selectedTransaction.amount
           )}`}</h4>
-          <p>{formatDate(selectedTransaction.createdAt)}</p>
+          <p className="text-xs text-medium-grey">
+            {formatDate(selectedTransaction.createdAt)}
+          </p>
         </div>
-        <table className="mt-10 justify-center items-center w-full flex flex-col">
-          <tbody>
-            <tr>
-              <td className="flex justify-between w-full">
-                <h4 className="text-medium-grey">ID Transacción Bold</h4>
-                <h4 className="font-bold">{selectedTransaction.id}</h4>
-              </td>
-              <td className="flex justify-between w-full">
-                <p className="text-medium-grey">Deducción Bold</p>
-                <h4 className="text-secondary font-medium">{`-$ ${formatCurrency(
-                  selectedTransaction.deduction
-                    ? selectedTransaction.deduction
-                    : 0
-                )}`}</h4>
-              </td>
-              <td className="flex justify-between w-full">
-                <h4 className="text-medium-grey">Método de pago</h4>
-                <div className="flex justify-center items-center">
-                  <Image
-                    alt={selectedTransaction.paymentMethod}
-                    src={getPaymentIcon(selectedTransaction.paymentMethod)}
-                    width={10}
-                    height={10}
-                    className="w-auto h-6 mr-2"
-                  />
-                  <p>{`****${selectedTransaction.transactionReference}`}</p>
-                </div>
-              </td>
-              <td className="flex justify-between w-full">
-                <h4 className="text-medium-grey">Tipo de pago</h4>
+        <section className="mt-10 md:mt-14 justify-center items-center w-full flex flex-col">
+          <article className="w-full">
+            <div className="flex justify-between w-full mb-3">
+              <h4 className="text-medium-grey">ID Transacción Bold</h4>
+              <h4 className="font-bold">{selectedTransaction.id}</h4>
+            </div>
+
+            <div className="flex justify-between w-full mb-3 mb:mb-4 row-border">
+              <p className="text-medium-grey">Deducción Bold</p>
+              <h4 className="text-secondary font-medium">{`-$ ${formatCurrency(
+                selectedTransaction.deduction
+                  ? selectedTransaction.deduction
+                  : 0
+              )}`}</h4>
+            </div>
+            <div className="flex justify-between w-full mb-3">
+              <h4 className="text-medium-grey">Método de pago</h4>
+              <div className="flex justify-center items-center">
+                <Image
+                  alt={selectedTransaction.paymentMethod}
+                  src={getPaymentIcon(selectedTransaction.paymentMethod)}
+                  width={10}
+                  height={10}
+                  className="w-auto h-6 mr-2"
+                />
+                <p>{`****${selectedTransaction.transactionReference}`}</p>
+              </div>
+            </div>
+            <div className="flex justify-between w-full mb-3">
+              <h4 className="text-medium-grey">Tipo de pago</h4>
+              <div className="flex justify-center items-center">
                 <Image
                   alt={selectedTransaction.salesType}
                   src={getTransactionIcon(selectedTransaction.salesType)}
                   width={5}
                   height={5}
-                  className="h-5 w-5 mr-4"
+                  className="h-5 w-5 mr-2"
                 />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                <h4 className="font-semibold text-primary">
+                  {getPaymentMessage(selectedTransaction.salesType)}
+                </h4>
+              </div>
+            </div>
+          </article>
+        </section>
       </div>
     </div>
   );

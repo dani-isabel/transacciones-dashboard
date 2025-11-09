@@ -34,7 +34,7 @@ export default function Table({
   }
 
   return (
-    <div className="h-80 overflow-y-auto">
+    <div className="h-svh overflow-y-auto">
       {filteredTransactions.length > 0 ? (
         isDesktop ? (
           <table className="table-auto bg-white w-full">
@@ -47,10 +47,10 @@ export default function Table({
                 <th>Monto</th>
               </tr>
             </thead>
-            <tbody className="h-96 w-full">
+            <tbody className="w-full">
               {filteredTransactions.map((row: Transaction) => (
                 <tr
-                  className="h-20 row-border hover:bg-light-grey"
+                  className="h-20 row-border hover:bg-light-grey cursor-pointer"
                   key={row.id}
                   onClick={() => handleActiveRow(row)}
                 >

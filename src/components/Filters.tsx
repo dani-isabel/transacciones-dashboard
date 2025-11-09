@@ -50,7 +50,7 @@ export default function Filters() {
       <div className="flex justify-end relative">
         <button
           onClick={handleToggleFilter}
-          className="h-11 flex bg-white w-30 shadow-md items-center rounded-sm mt-4 p-2 justify-end"
+          className="h-11 flex bg-white w-30 shadow-md items-center rounded-sm mt-4 p-2 justify-end cursor-pointer hover:bg-hover"
         >
           Filtrar <AdjustmentsHorizontalIcon className="size-6 ml-1" />
         </button>

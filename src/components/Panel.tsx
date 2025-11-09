@@ -33,7 +33,7 @@ function getTotalDeductions(transactions: Transaction[]): number {
   const totalDeductions = transactions.reduce(
     (total: number, item: Transaction) => {
       if (item.deduction) {
-        return item.amount + total;
+        return item.deduction + total;
       } else {
         return total;
       }

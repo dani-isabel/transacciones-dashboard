@@ -21,12 +21,12 @@ export default function DateRangeButtons({
   };
 
   return (
-    <div className="text-sm md:text-base h-12 md:w-233 rounded-sm flex justify-between bg-white items-center p-2 md:p-5">
+    <div className="text-sm md:text-base h-12 md:w-full rounded-sm flex justify-between bg-white items-center p-2 md:p-5">
       {ranges.map((range) => (
         <button
           key={range.value}
           onClick={() => handleClick(range.value)}
-          className={`w-40 md:w-65 h-8 capitalize cursor-pointer ${
+          className={`w-40 md:w-65 h-8 capitalize cursor-pointer hover:bg-hover ${
             range.value === DATE_RANGES.TODAY ? "ml-3" : ""
           } rounded-lg ${selectedRange === range.value ? "bg-light-grey" : ""}`}
         >
