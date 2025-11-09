@@ -4,16 +4,12 @@ import type { ChangeEvent } from "react";
 import { useSearchParams } from "next/navigation";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import TransactionsTable from "@/components/Table";
-import type { Transaction } from "@/types/transaction";
+import type { Transaction } from "@/types";
 import { applyFilters } from "@/utils/getFilterTransactions";
 import { getCurrentMonth } from "@/utils/getTransactionsValues";
 
-import {
-  DATE_RANGES,
-  URL_PARAMS,
-  type DateRange,
-  type SalesType,
-} from "@/constants/filters";
+import { DATE_RANGES, URL_PARAMS } from "@/constants";
+import type { DateRange, SalesType } from "@/types";
 
 interface SearchableTableProps {
   transactions: Transaction[];

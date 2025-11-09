@@ -12,6 +12,8 @@ import {
   getTransactionIcon,
 } from "@/utils/getTransactionsValues";
 
+import { TransactionStatus } from "@/types";
+
 export default function TransactionSidebar() {
   const { selectedTransaction, clearTransaction } = useTransaction();
   const sidebarRef = useRef<HTMLDivElement>(null);
@@ -39,7 +41,7 @@ export default function TransactionSidebar() {
     return null;
   }
 
-  function getStatusIcon(status: string) {
+  function getStatusIcon(status: TransactionStatus) {
     switch (status) {
       case "REJECTED": {
         return "/rejected.png";
@@ -79,7 +81,7 @@ export default function TransactionSidebar() {
         <div className="flex flex-col justify-center items-center mt-2">
           <Image
             alt={selectedTransaction.status}
-            src={getStatusIcon(selectedTransaction.status)}
+            src={getStatusIcon(selectedTransaction.status as TransactionStatus)}
             width={30}
             height={30}
           />

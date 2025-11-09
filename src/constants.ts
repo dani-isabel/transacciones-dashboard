@@ -14,5 +14,15 @@ export const URL_PARAMS = {
   SALES_TYPE: "salesType",
 } as const;
 
-export type SalesType = typeof SALES_TYPES[keyof typeof SALES_TYPES];
-export type DateRange = typeof DATE_RANGES[keyof typeof DATE_RANGES];
+export const PAYMENT_METHODS = {
+  CARD: "CARD",
+  DAVIPLATA: "DAVIPLATA",
+  NEQUI: "NEQUI",
+  PSE: "PSE",
+  BANCOLOMBIA: "BANCOLOMBIA",
+} as const;
+
+export const TRANSACTION_STATUS = {
+  SUCCESSFUL: "SUCCESSFUL",
+  REJECTED: "REJECTED",
+} as const;

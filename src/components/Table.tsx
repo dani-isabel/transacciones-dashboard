@@ -10,7 +10,7 @@ import {
   getFilteredData,
 } from "@/utils/getTransactionsValues";
 
-import type { Transaction } from "@/types/transaction";
+import type { Transaction } from "@/types";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useTransaction } from "@/contexts/TransactionContext";
 

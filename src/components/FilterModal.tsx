@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { SALES_TYPES } from "@/constants/filters";
+import { SALES_TYPES } from "@/constants";
+import type { SalesType } from "@/types";
 
 import type { FormEvent, ChangeEvent } from "react";
 
 interface FilterModalProps {
-  selectedTypes: string[];
+  selectedTypes: SalesType[];
   onClose: () => void;
-  onSubmit: (salesTypes: string[]) => void;
+  onSubmit: (salesTypes: SalesType[]) => void;
 }
 
 export default function FilterModal({
@@ -24,7 +25,7 @@ export default function FilterModal({
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const types: string[] = [];
+    const types: SalesType[] = [];
     if (terminal) types.push(SALES_TYPES.TERMINAL);
     if (paymentLink) types.push(SALES_TYPES.PAYMENT_LINK);
     onSubmit(types);

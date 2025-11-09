@@ -1,9 +1,10 @@
-import { DATE_RANGES } from "@/constants/filters";
+import { DATE_RANGES } from "@/constants";
 import { getCurrentMonth } from "@/utils/getTransactionsValues";
+import type { DateRange } from "@/types";
 
 interface DateRangeButtonsProps {
-  selectedRange: string;
-  onRangeChange: (range: string) => void;
+  selectedRange: DateRange;
+  onRangeChange: (range: DateRange) => void;
 }
 
 export default function DateRangeButtons({
@@ -16,7 +17,7 @@ export default function DateRangeButtons({
     { value: DATE_RANGES.MONTH, label: getCurrentMonth() },
   ];
 
-  const handleClick = (value: string) => {
+  const handleClick = (value: DateRange) => {
     if (selectedRange !== value) onRangeChange(value);
   };
 
