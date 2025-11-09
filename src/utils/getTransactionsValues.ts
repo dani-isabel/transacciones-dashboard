@@ -78,7 +78,6 @@ export function getCurrentDate() {
         month: "long",
         day: "numeric"
     } as const).format(date)
-    console.log({formattedCurrentDate})
     return formattedCurrentDate
 }
 export function getCurrentMonth() {

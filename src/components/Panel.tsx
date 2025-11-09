@@ -54,12 +54,12 @@ export default async function TransactionsPanel() {
   const totalEarnings = totalSales - totalDeductions;
 
   return (
-    <section className="p-5 md:p-15 relative">
+    <section className="text-sm md:text-base p-5 md:p-15 relative">
       <TransactionProvider>
         <article className="flex flex-col md:flex-row justify-between">
           <div className="shadow-md rounded-lg bg-white md:w-96">
             <div className="rounded-t-lg h-14 p-3 flex justify-between items-center bg-linear-to-r from-primary to-secondary text-light-grey">
-              <h3>Total de ventas de hoy</h3>
+              <h3 className="text-lg">Total de ventas de hoy</h3>
               <Popover className="relative">
                 <PopoverButton className="cursor-pointer">
                   <InformationCircleIcon className="size-6 ml-1" />

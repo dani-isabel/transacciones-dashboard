@@ -54,7 +54,7 @@ export default function Search({ transactions }: SearchableTableProps) {
           </strong>
         </span>
       </div>
-      <div className="flex w-full bg-white p-3 relative ">
+      <div className="flex w-full bg-white p-3 relative header-border">
         <MagnifyingGlassIcon className="size-6 ml-1 text-medium-grey" />
         <input
           type="search"
@@ -70,6 +70,7 @@ export default function Search({ transactions }: SearchableTableProps) {
         transactions={filteredTransactions}
         searchTerm={searchTerm}
       />
+      <div className="h-5 p-3 flex justify-between items-center bg-linear-to-r from-primary to-secondary text-light-grey rounded-b-lg"></div>
     </>
   );
 }

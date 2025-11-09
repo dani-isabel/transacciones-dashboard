@@ -21,7 +21,7 @@ export default function DateRangeButtons({
   };
 
   return (
-    <div className="h-12 md:w-233 rounded-sm flex justify-between bg-white items-center p-2 md:p-5">
+    <div className="text-sm md:text-base h-12 md:w-233 rounded-sm flex justify-between bg-white items-center p-2 md:p-5">
       {ranges.map((range) => (
         <button
           key={range.value}

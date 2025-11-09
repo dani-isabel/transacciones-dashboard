@@ -40,7 +40,7 @@ export default function Filters() {
   };
 
   return (
-    <article className="mt-5 md:mt-0 text-primary">
+    <article className="text-sm md:text-base mt-5 md:mt-0 text-primary">
       <DateRangeButtons
         selectedRange={
           searchParams.get(URL_PARAMS.DATE_RANGE) || DATE_RANGES.TODAY

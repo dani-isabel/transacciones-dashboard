@@ -4,7 +4,7 @@ import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 
 export default function Navbar() {
   return (
-    <nav className="flex py-2 md:h-25 px-5 md:pl-20 md:pr-40 md:py-6 bg-linear-to-r from-primary to-secondary justify-between items-center">
+    <nav className="text-sm md:text-base flex py-2 md:h-25 px-5 md:pl-20 md:pr-40 md:py-6 bg-linear-to-r from-primary to-secondary justify-between items-center">
       <Link href="/" className="m-1.5 p-1.5">
         <Image
           src="/boldLogo.png"
