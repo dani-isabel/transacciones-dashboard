@@ -1,5 +1,5 @@
-import TableContent from "@/components/TransactionsPanel/TableContent";
-import TransactionSidebar from "@/components/TransactionsPanel/TransactionSidebar";
+import TableContent from "@/components/TableContent";
+import TransactionSidebar from "@/components/Sidebar";
 
 export default function TransactionsTable() {
   return (

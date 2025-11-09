@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
-import TransactionsPanel from "@/components/TransactionsPanel/TransactionsPanel";
+import TransactionsPanel from "@/components/Panel";
 
-export default function Home() {
+export default function Page() {
   return (
     <section>
       <nav className="flex py-2 md:h-25 px-5 md:pl-20 md:pr-40 md:py-6 bg-linear-to-r from-primary to-secondary justify-between items-center">
