@@ -23,6 +23,8 @@ export default function TableRows({
   const [selectedTransaction, setSelectedTransaction] =
     useState<Transaction | null>(null);
 
+  const [isLoaded, setIsLoaded] = useState(true);
+
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   console.log(isDesktop);
 
@@ -30,6 +32,7 @@ export default function TableRows({
     setSelectedTransaction(row);
   }
 
+  if (!isLoaded) return null;
   return (
     <>
       {isDesktop ? (

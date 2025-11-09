@@ -1,7 +1,10 @@
 import {useState, useEffect} from "react"
 
 export function useMediaQuery(mediaQuery: string) {
-    const [isMatchMedia, setIsMatchMedia] = useState(() => window?.matchMedia(mediaQuery).matches);
+    const getInitialMatch = () =>         typeof window !== "undefined"
+            ? window.matchMedia(mediaQuery).matches
+            : false;
+    const [isMatchMedia, setIsMatchMedia] = useState(getInitialMatch);
 
     useEffect(() => {
         const currentSize = window?.matchMedia(mediaQuery);

@@ -5,12 +5,13 @@ import {
 } from "@heroicons/react/24/outline";
 import Filters from "@/components/Filters";
 import TransactionsTable from "@/components/Table";
+import TransactionSidebar from "@/components/Sidebar";
 
 import { getTotalSales, getCurrentDate } from "@/utils/getTransactionsValues";
 
 export default function TransactionsPanel() {
   return (
-    <section className="m-5 md:m-15">
+    <section className="p-5 md:p-15 relative">
       <article className="flex flex-col md:flex-row justify-between">
         <div className="shadow-md rounded-lg bg-white md:w-96">
           <div className="rounded-t-lg h-14 p-3 flex justify-between items-center bg-linear-to-r from-primary to-secondary text-light-grey">
@@ -32,6 +33,7 @@ export default function TransactionsPanel() {
         <input type="search" placeholder="Buscar" className="absolute pl-8" />
       </div>
       <TransactionsTable />
+      <TransactionSidebar />
     </section>
   );
 }
