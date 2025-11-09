@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import Image from "next/image";
 
 import {
@@ -13,6 +12,7 @@ import {
 
 import type { Transaction } from "@/types/transaction";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { useTransaction } from "@/contexts/TransactionContext";
 
 interface TransactionsTableProps {
   transactions: Transaction[];
@@ -23,14 +23,14 @@ export default function Table({
   transactions,
   searchTerm,
 }: TransactionsTableProps) {
-  const [selectedTransaction, setSelectedTransaction] =
-    useState<Transaction | null>(null);
-
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const filteredTransactions = getFilteredData(transactions, searchTerm);
+  const { selectedTransaction, selectTransaction } = useTransaction();
 
-  function handleActiveRow(row: Transaction) {
-    setSelectedTransaction(row);
+  function handleActiveRow(transaction: Transaction) {
+    if (!selectedTransaction) {
+      selectTransaction(transaction);
+    }
   }
 
   return (
