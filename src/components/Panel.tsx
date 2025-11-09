@@ -1,13 +1,15 @@
 import { Suspense } from "react";
-import { InformationCircleIcon } from "@heroicons/react/24/outline";
+
 import Filters from "@/components/Filters";
 import Search from "@/components/Search";
 import TransactionSidebar from "@/components/Sidebar";
+import TotalSalesCard from "@/components/SummaryCard";
 import { TransactionProvider } from "@/contexts/TransactionContext";
 
-import type { Transaction } from "@/types/transaction";
+import type { Transaction, DateRange } from "@/types";
 
-import { formatCurrency, getCurrentDate } from "@/utils/getTransactionsValues";
+import { filterTransactionsByDateRange } from "@/utils/getFilterTransactions";
+import { DATE_RANGES, URL_PARAMS } from "@/constants";
 
 async function getTransactions(): Promise<{ data: Transaction[] }> {
   const transactions = await fetch("https://bold-fe-api.vercel.app/api");
@@ -18,31 +20,29 @@ async function getTransactions(): Promise<{ data: Transaction[] }> {
   return transactions.json();
 }
 
-export function getTotalSales(transactions: Transaction[]): string {
-  const totalSales = transactions.reduce((total: number, item: Transaction) => {
-    return item.amount + total;
-  }, 0);
-  return formatCurrency(totalSales);
-}
+export default async function TransactionsPanel({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const params = await searchParams;
+  const selectedRange = ((params[URL_PARAMS.DATE_RANGE] as string) ||
+    DATE_RANGES.TODAY) as DateRange;
 
-export default async function TransactionsPanel() {
   const { data: transactions } = await getTransactions();
-  const totalSales = getTotalSales(transactions);
+  const dailyTransactions = filterTransactionsByDateRange(
+    transactions,
+    selectedRange
+  );
 
   return (
-    <section className="p-5 md:p-15 relative">
+    <section className="text-sm md:text-base p-5 md:p-15 relative">
       <TransactionProvider>
         <article className="flex flex-col md:flex-row justify-between">
-          <div className="shadow-md rounded-lg bg-white md:w-96">
-            <div className="rounded-t-lg h-14 p-3 flex justify-between items-center bg-linear-to-r from-primary to-secondary text-light-grey">
-              <h3>Total de ventas de hoy</h3>
-              <InformationCircleIcon className="size-6 ml-1" />
-            </div>
-            <div className="flex h-25 justify-center items-center flex-col">
-              <h2 className="font-extrabold">{`$ ${totalSales}`}</h2>
-              <h4>{getCurrentDate()}</h4>
-            </div>
-          </div>
+          <TotalSalesCard
+            transactions={dailyTransactions}
+            selectedRange={selectedRange}
+          />
           <Suspense fallback={<h3>Loading date filters</h3>}>
             <Filters />
           </Suspense>

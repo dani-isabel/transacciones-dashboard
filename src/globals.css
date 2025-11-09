@@ -10,6 +10,7 @@
   --font-sans: var(--font-montserrat-sans);
   --radius-sm: 0.5rem;
   --radius-lg: 1.2rem;
+  --color-hover: rgb(18, 30, 108, 0.1);
 }
 
 .row-border {

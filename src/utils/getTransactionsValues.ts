@@ -1,4 +1,5 @@
-import type { Transaction } from "@/types/transaction";
+import type { Transaction, PaymentMethod, SalesType, TransactionStatus } from "@/types";
+import { SALES_TYPES, PAYMENT_METHODS, TRANSACTION_STATUS } from "@/constants";
 
 export function formatCurrency (amount:number) {
     const locale = "es-ES"
@@ -15,21 +16,21 @@ export function formatCurrency (amount:number) {
     }
 }
 
-export function getPaymentIcon(method:string) {
+export function getPaymentIcon(method: PaymentMethod) {
     switch(method) {
-        case "CARD": {
+        case PAYMENT_METHODS.CARD: {
             return "/american-express.png";
         }
-        case "DAVIPLATA": {
+        case PAYMENT_METHODS.DAVIPLATA: {
             return "/daviplata.png";
         }
-        case "NEQUI": {
+        case PAYMENT_METHODS.NEQUI: {
             return "/nequi.png";
         }
-        case "PSE": {
+        case PAYMENT_METHODS.PSE: {
             return "/pse.png";
         }
-        case "BANCOLOMBIA": {
+        case PAYMENT_METHODS.BANCOLOMBIA: {
             return "/bancolombia.png";
         }
         default: {
@@ -43,12 +44,12 @@ export function formatDate(date:number) {
     return formattedDate
 }
 
-export function getStatusMessages(status:string) {
+export function getStatusMessages(status: TransactionStatus | string) {
     switch (status) {
-        case "SUCCESSFUL": {
+        case TRANSACTION_STATUS.SUCCESSFUL: {
             return "Cobro exitoso";
         }
-        case "REJECTED": {
+        case TRANSACTION_STATUS.REJECTED: {
             return "Cobro no realizado";
         }
         default: {
@@ -57,12 +58,12 @@ export function getStatusMessages(status:string) {
     }
 }
 
-export function getTransactionIcon(type:string) {
+export function getTransactionIcon(type: SalesType | string) {
     switch (type) {
-        case "TERMINAL": {
+        case SALES_TYPES.TERMINAL: {
             return "/datafono.png";
         }
-        case "PAYMENT_LINK": {
+        case SALES_TYPES.PAYMENT_LINK: {
             return "/enlace.png";
         }
         default: {
@@ -79,6 +80,13 @@ export function getCurrentDate() {
         day: "numeric"
     } as const).format(date)
     return formattedCurrentDate
+}
+export function getCurrentMonth() {
+    const date = new Date()
+    const formattedCurrentMonth = new Intl.DateTimeFormat("es-ES", {
+        month: "long",
+    } as const).format(date)
+    return formattedCurrentMonth
 }
 
 export function getFilteredData(transactions: Transaction[], searchTerm:string) {

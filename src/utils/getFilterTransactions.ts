@@ -1,5 +1,6 @@
-import { Transaction } from "@/types/transaction";
-import { DATE_RANGES, type DateRange, type SalesType } from "@/constants/filters";
+import { Transaction } from "@/types";
+import { DATE_RANGES } from "@/constants";
+import type {DateRange, SalesType} from "@/types"
 
 export function filterTransactionsByDateRange(
   transactions: Transaction[],

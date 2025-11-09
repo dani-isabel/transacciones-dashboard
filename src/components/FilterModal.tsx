@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { SALES_TYPES } from "@/constants/filters";
+import { SALES_TYPES } from "@/constants";
+import type { SalesType } from "@/types";
 
 import type { FormEvent, ChangeEvent } from "react";
 
 interface FilterModalProps {
-  selectedTypes: string[];
+  selectedTypes: SalesType[];
   onClose: () => void;
-  onSubmit: (salesTypes: string[]) => void;
+  onSubmit: (salesTypes: SalesType[]) => void;
 }
 
 export default function FilterModal({
@@ -24,7 +25,7 @@ export default function FilterModal({
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const types: string[] = [];
+    const types: SalesType[] = [];
     if (terminal) types.push(SALES_TYPES.TERMINAL);
     if (paymentLink) types.push(SALES_TYPES.PAYMENT_LINK);
     onSubmit(types);
@@ -42,7 +43,7 @@ export default function FilterModal({
     <div className="absolute top-16 right-0 bg-white w-60 flex flex-col py-2 px-4 rounded-sm shadow-md z-10">
       <div className="flex justify-between items-center mb-3">
         <h3>Filtrar</h3>
-        <button onClick={onClose} type="button">
+        <button onClick={onClose} type="button" className="cursor-pointer">
           <XMarkIcon className="size-5" />
         </button>
       </div>

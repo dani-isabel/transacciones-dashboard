@@ -1,8 +1,10 @@
-import { DATE_RANGES } from "@/constants/filters";
+import { DATE_RANGES } from "@/constants";
+import { getCurrentMonth } from "@/utils/getTransactionsValues";
+import type { DateRange } from "@/types";
 
 interface DateRangeButtonsProps {
-  selectedRange: string;
-  onRangeChange: (range: string) => void;
+  selectedRange: DateRange;
+  onRangeChange: (range: DateRange) => void;
 }
 
 export default function DateRangeButtons({
@@ -12,20 +14,20 @@ export default function DateRangeButtons({
   const ranges = [
     { value: DATE_RANGES.TODAY, label: "Hoy" },
     { value: DATE_RANGES.WEEK, label: "Esta semana" },
-    { value: DATE_RANGES.MONTH, label: "Mes actual" },
+    { value: DATE_RANGES.MONTH, label: getCurrentMonth() },
   ];
 
-  const handleClick = (value: string) => {
+  const handleClick = (value: DateRange) => {
     if (selectedRange !== value) onRangeChange(value);
   };
 
   return (
-    <div className="h-12 md:w-233 rounded-sm flex justify-between bg-white items-center">
+    <div className="text-sm md:text-base h-12 md:w-full rounded-sm flex justify-between bg-white items-center p-2 md:p-5">
       {ranges.map((range) => (
         <button
           key={range.value}
           onClick={() => handleClick(range.value)}
-          className={`w-40 md:w-65 h-8 ${
+          className={`w-40 md:w-65 h-8 capitalize cursor-pointer hover:bg-hover ${
             range.value === DATE_RANGES.TODAY ? "ml-3" : ""
           } rounded-lg ${selectedRange === range.value ? "bg-light-grey" : ""}`}
         >
