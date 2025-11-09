@@ -24,7 +24,10 @@
       "@/styles/*": ["styles/*"],
       "@/components/*": ["components/*"],
       "@/utils/*": ["utils/*"],
-      "@/types/*": ["types/*"]
+      "@/types/*": ["types/*"],
+      "@/hooks/*": ["hooks/*"],
+      "@/constants/*": ["constants/*"],
+      "@/contexts/*": ["contexts/*"]
     }
   },
   "include": [

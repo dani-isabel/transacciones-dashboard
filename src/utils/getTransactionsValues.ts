@@ -1,11 +1,6 @@
-import { Transaction } from "@/types/transaction";
+import type { Transaction } from "@/types/transaction";
 
-export async function getTransactions() {
-  const transactions = await fetch("https://bold-fe-api.vercel.app/api");
-  return transactions.json();
-}
-
-export function formatCurrency(amount:number) {
+export function formatCurrency (amount:number) {
     const locale = "es-ES"
     try{
         Intl.NumberFormat.supportedLocalesOf([locale])
@@ -16,6 +11,7 @@ export function formatCurrency(amount:number) {
         }).format(amount).replace("COP", "")
     } catch(error) {
         console.error("Invalid locale", {error, amount, locale})
+        return amount.toLocaleString()
     }
 }
 
@@ -73,15 +69,6 @@ export function getTransactionIcon(type:string) {
             return "/desconocido.png"
         }
     }
-} 
-
-export async function getTotalSales() {
-    const transactions = await getTransactions();
-    const {data} = transactions;
-    const totalSales = data.reduce((total:number, item:Transaction) => {
-        return item.amount + total
-    }, 0)
-    return formatCurrency(totalSales)
 }
 
 export function getCurrentDate() {
@@ -92,4 +79,46 @@ export function getCurrentDate() {
         day: "numeric"
     } as const).format(date)
     return formattedCurrentDate
+}
+
+export function getFilteredData(transactions: Transaction[], searchTerm:string) {
+    return transactions.filter((transaction) => {
+    if (!searchTerm) return true;
+
+    const searchLower = searchTerm.toLowerCase();
+
+    const matchesId = transaction.id.toLowerCase().includes(searchLower);
+    const matchesPaymentMethod = transaction.paymentMethod
+      .toLowerCase()
+      .includes(searchLower);
+    const matchesReference = transaction.transactionReference
+      .toString()
+      .includes(searchLower);
+    const matchesAmount = formatCurrency(transaction.amount)
+      .toLowerCase()
+      .includes(searchLower);
+    const matchesDeduction = transaction.deduction
+      ? formatCurrency(transaction.deduction).toLowerCase().includes(searchLower)
+      : false;
+    const matchesStatus = getStatusMessages(transaction.status)
+      .toLowerCase()
+      .includes(searchLower);
+    const matchesSalesType = transaction.salesType
+      .toLowerCase()
+      .includes(searchLower);
+    const matchesDate = formatDate(transaction.createdAt)
+      .toLowerCase()
+      .includes(searchLower);
+
+    return (
+      matchesId ||
+      matchesPaymentMethod ||
+      matchesReference ||
+      matchesAmount ||
+      matchesDeduction ||
+      matchesStatus ||
+      matchesSalesType ||
+      matchesDate
+    );
+  });
 }
